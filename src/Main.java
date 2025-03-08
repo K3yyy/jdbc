@@ -1,30 +1,30 @@
-import model.dao.CustomerDaoImpl;
-import model.entity.Customer;
+import controller.ProductController;
+import model.dao.ProductDAO;
+import model.dao.ProductDAOImpl;
+import view.ProductView;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc =new Scanner(System.in);
-       String url ="jdbc:postgresql://localhost:5432/postgres";
-       String user="postgres";
-       String pw ="143";
         try {
-            Connection conn = DriverManager.getConnection(url,user,pw);
-            String sql = """
-                    DELETE FROM "product" WHERE id=?;
-                    """;
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setInt(1,2);
-            pre.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/postgres", "postgres", "143"
+            );
+
+            ProductDAO productDAO = new ProductDAOImpl(connection);
+            ProductView productView = new ProductView();
+            ProductController productController = new ProductController(productDAO, productView);
+
+            // Add a product
+            productController.addProduct("iPhone", 3000, 300);
+
+            // Display all products
+            productController.displayAllProducts();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
     }
 }
