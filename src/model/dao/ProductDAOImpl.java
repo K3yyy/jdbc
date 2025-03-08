@@ -28,6 +28,16 @@ public class ProductDAOImpl implements ProductDAO {
             e.printStackTrace();
         }
     }
+    public void deleteProduct(int id) {
+        String query = "DELETE FROM products WHERE id = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public List<Product> getAllProducts() {

@@ -21,6 +21,10 @@ public class ProductController {
         productDAO.addProduct(product);
         productView.displayMessage("Product added successfully!");
     }
+    public void deleteProduct(int id) {
+        productDAO.deleteProduct(id);
+        productView.displayMessage("Product deleted successfully!");
+    }
 
     public void displayAllProducts() {
         List<Product> products = productDAO.getAllProducts();

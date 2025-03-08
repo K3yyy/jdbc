@@ -19,6 +19,8 @@ public class Main {
 
             // Add a product
             productController.addProduct("iPhone", 3000, 300);
+            // Delete a product by ID
+            productController.deleteProduct(1);
 
             // Display all products
             productController.displayAllProducts();
